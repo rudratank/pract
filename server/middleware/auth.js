@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken"
 const isAuthenticatedUser = async (req, res, next) => {
   const token = req.query.token;
   // const { token } = req.cookies;
-  console.log("token : " + token);
+  // console.log("token : " + token);
 
   if (!token || token == "null") {
     return res.status(401).send(

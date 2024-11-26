@@ -45,12 +45,18 @@ UserSchema.pre("save",async function(next)
     next();
 });
 
+
+UserSchema.pre("save",async function(next){
+    const salt = await genSalt();
+    this.password=await hash(this.password,salt);
+    next();
+})
 //generate jwt token
-UserSchema.methods.getJWTToekn = function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_KEY, {
-      expiresIn: process.env.JWT_EXPIRE,
-    });
-  };
+// UserSchema.methods.getJWTToekn = function () {
+//     return jwt.sign({ id: this._id }, process.env.JWT_KEY, {
+//       expiresIn: process.env.JWT_EXPIRE,
+//     });
+//   };
 
 const User = mongoose.model("Users",UserSchema);
 
